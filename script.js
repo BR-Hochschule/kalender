@@ -5,8 +5,8 @@ function createSnowflake() {
   const snowflake = document.createElement('div');
   snowflake.className = 'snowflake';
   snowflake.textContent = '❄';
-  snowflake.style.left = Math.random() * (calendar.offsetWidth + 100) - 100 + 'px';
-  snowflake.style.animationDuration = Math.random() * 7 + 3 + 's';
+  snowflake.style.left = Math.random() * (calendar.offsetWidth + 100) - 100 + 'px'; // Innerhalb von #calendar
+  snowflake.style.animationDuration = Math.random() * 7 + 3 + 's'; // Langsamer
   snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
 
   calendar.appendChild(snowflake);
@@ -16,31 +16,26 @@ function createSnowflake() {
   });
 }
 
-
 async function createCalendar() {
   setInterval(() => {
-    for (let i = 0; i < 5; i++) { // Erzeuge mehrere Schneeflocken gleichzeitig
+    for (let i = 0; i < 5; i++) {
       createSnowflake();
     }
   }, 500);
   const calendar = document.getElementById('calendar');
 
+  // Zentrales Display erstellen
   const centerDisplay = document.createElement('div');
   centerDisplay.id = 'center-display';
   calendar.appendChild(centerDisplay);
 
   centerDisplay.addEventListener('click', () => {
-    centerDisplay.style.display = 'none'; // Versteckt den Text
+    centerDisplay.style.display = 'none';
   });
 
   const currentDate = new Date();
   const currentDay = currentDate.getDate();
   const month = currentDate.getMonth();
-
-  if (month !== 11) {
-    calendar.innerHTML = '<p>Es geht erst im Dezember los. :)</p>';
-    return;
-  }
 
   try {
     const response = await fetch('content.json');
@@ -66,7 +61,7 @@ async function createCalendar() {
       if (item.link) {
         const link = document.createElement('a');
         link.href = item.link;
-        link.textContent = "Mehr Infos";
+        link.textContent = "Click here!";
         link.target = "_blank";
         link.style.display = 'block';
         link.style.marginTop = '10px';
@@ -78,7 +73,7 @@ async function createCalendar() {
       }
 
       door.addEventListener('click', () => {
-        if (item.day <= currentDay) {
+        if (month === 11 && item.day <= currentDay) {
           for (let i = 0; i < 400; i++) {
             createSnowflake();
           }
@@ -119,7 +114,7 @@ async function createCalendar() {
           door.classList.add('open');
           lastOpenedDoor = door;
         } else {
-          alert("Bitte noch etwas Geduld. :)");
+          alert("Heute noch nicht! ;)");
         }
       });
 
@@ -131,7 +126,6 @@ async function createCalendar() {
     calendar.innerHTML = '<p>Failed to load calendar content.</p>';
   }
 }
-
 
 function generatePositions(count, width, height, size) {
   let positions = [];
@@ -148,16 +142,15 @@ function generatePositions(count, width, height, size) {
 
     if (!overlap) {
       positions.push({ x, y });
-      attempts = 0; 
+      attempts = 0;
     } else {
-      attempts++; 
+      attempts++;
     }
 
     if (attempts > maxAttempts) {
       console.warn('Switching to fallback positioning...');
-
       positions = fallbackGridPositions(count, width, height, size);
-      break; // Beende die while-Schleife, da die Fallback-Positionierung fertig ist
+      break;
     }
   }
 
@@ -166,7 +159,6 @@ function generatePositions(count, width, height, size) {
 
 function fallbackGridPositions(count, width, height, size) {
   const positions = [];
-
   let cols = Math.floor(width / size);
   let rows = Math.ceil(count / cols);
 
@@ -181,7 +173,6 @@ function fallbackGridPositions(count, width, height, size) {
 
   for (let i = 0; i < count; i++) {
     positions.push({ x, y });
-
     x += size;
 
     if (x + size > width - horizontalPadding) {
