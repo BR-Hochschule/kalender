@@ -33,7 +33,7 @@ async function createCalendar() {
   const month = currentDate.getMonth();
 
   if (month !== 11) {
-    calendar.innerHTML = '<p>Es geth erst im Dezember los. :)</p>';
+    calendar.innerHTML = '<p>Es geht erst im Dezember los. :)</p>';
     return;
   }
 
