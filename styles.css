@@ -1,5 +1,4 @@
-/* styles.css */
-/* Schneefall */
+
 .snowflake {
   position: absolute;
   top: -100px;
@@ -12,20 +11,20 @@
 
 @keyframes fall {
   0% {
-    transform: translateY(0); /* Startposition */
-    opacity: 1; /* Sichtbar */
+    transform: translateY(0);
+    opacity: 1; 
   }
   100% {
     transform: translateY(100vh) translateX(100px);
-    opacity: 1; /* Sichtbar */
+    opacity: 1;
   }
 }
 
 .snowflake.resting {
-  top: auto; /* Position durch Animation */
-  bottom: 0; /* Am unteren Rand von #calendar */
-  animation: none; /* Stoppt Animation */
-  transform: translateY(0); /* Keine Bewegung */
+  top: auto;
+  bottom: 0;
+  animation: none;
+  transform: translateY(0);
 }
 
 
@@ -33,7 +32,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-image: url('./images/background.jpg'); /* Pfad für das Hintergrundbild */
+  background-image: url('./images/background.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -53,8 +52,8 @@ h1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: calc(100% - 20px); /* Gesamtbreite minus Abstand */
-  height: calc(100% - 20px); /* Gesamthöhe minus Abstand */
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
   min-width: 360px;
   min-height: 300px;
   border: 2px solid rgba(255, 255, 255, 0.5);
@@ -78,8 +77,8 @@ h1 {
   text-align: center;
   display: none;
   z-index: 20;
-  --end-x: 50%; /* Standardwert */
-  --end-y: 50%; /* Standardwert */
+  --end-x: 50%;
+  --end-y: 50%;
 }
 
 #center-display.moving {
@@ -93,8 +92,8 @@ h1 {
     transform: translate(-50%, -50%) scale(0.5);
   }
   to {
-    top: 50%; /* Vertikale Mitte des Bildschirms */
-    left: 50%; /* Horizontale Mitte des Bildschirms */
+    top: 50%;
+    left: 50%; 
     transform: translate(-50%, -50%) scale(1);
   }
 }
@@ -102,13 +101,13 @@ h1 {
 
 /* Türchen */
 .door {
-  border: 1px solid rgba(255, 255, 255, 0.5); /* Dünner, transparenter Rahmen */
+  border: 1px solid rgba(255, 255, 255, 0.5); 
   border-radius: 5px;
   text-align: center;
   font-size: 24px;
   font-weight: bold;
   color: #ffffff;
-  background: transparent; /* Geschlossene Kästchen sind komplett durchsichtig */
+  background: transparent;
   cursor: pointer;
   position: absolute;
   width: 80px;
@@ -123,22 +122,20 @@ h1 {
 }
 
 .door.open {
-  background-color: #ffffff; /* Weiße Tür bei geöffneter Ansicht */
-  border-color: #4caf50; /* Grüner Rand für geöffnete Tür */
+  background-color: #ffffff;
+  border-color: #4caf50; 
   color: #4caf50;
   cursor: pointer;
 }
 
-/* Dynamische Vergrößerung des aktiven Türchens */
 .door.last-open {
   z-index: 10;
   transform: scale(1.15);
-  background-color: #ffffff; /* Weiße Tür bei geöffneter Ansicht */
+  background-color: #ffffff; 
 }
 
-/* Inhalt des Türchens */
 .door-content {
-  display: none; /* Unsichtbar, solange das Türchen geschlossen ist */
+  display: none; 
   font-size: 12px;
   color: rgba(0, 0, 0, 0.8);
   text-align: center;
