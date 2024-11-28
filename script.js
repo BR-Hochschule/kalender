@@ -62,7 +62,7 @@ async function createCalendar() {
       if (item.link) {
         const link = document.createElement('a');
         link.href = item.link;
-        link.textContent = "Click here!";
+        link.textContent = "Mehr Infos";
         link.target = "_blank";
         link.style.display = 'block';
         link.style.marginTop = '10px';
