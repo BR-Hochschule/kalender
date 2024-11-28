@@ -18,6 +18,11 @@ function createSnowflake() {
 
 
 async function createCalendar() {
+  setInterval(() => {
+    for (let i = 0; i < 5; i++) { // Erzeuge mehrere Schneeflocken gleichzeitig
+      createSnowflake();
+    }
+  }, 500);
   const calendar = document.getElementById('calendar');
 
   const centerDisplay = document.createElement('div');
