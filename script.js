@@ -5,8 +5,8 @@ function createSnowflake() {
   const snowflake = document.createElement('div');
   snowflake.className = 'snowflake';
   snowflake.textContent = '❄';
-  snowflake.style.left = Math.random() * (calendar.offsetWidth + 100) - 100 + 'px'; // Innerhalb von #calendar
-  snowflake.style.animationDuration = Math.random() * 7 + 3 + 's'; // Langsamer
+  snowflake.style.left = Math.random() * (calendar.offsetWidth + 100) - 100 + 'px';
+  snowflake.style.animationDuration = Math.random() * 7 + 3 + 's';
   snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
 
   calendar.appendChild(snowflake);
@@ -20,7 +20,6 @@ function createSnowflake() {
 async function createCalendar() {
   const calendar = document.getElementById('calendar');
 
-  // Zentrales Display erstellen
   const centerDisplay = document.createElement('div');
   centerDisplay.id = 'center-display';
   calendar.appendChild(centerDisplay);
@@ -33,8 +32,8 @@ async function createCalendar() {
   const currentDay = currentDate.getDate();
   const month = currentDate.getMonth();
 
-  if (month !== 10) {
-    calendar.innerHTML = '<p>This calendar is only active in November!</p>';
+  if (month !== 11) {
+    calendar.innerHTML = '<p>Es geth erst im Dezember los. :)</p>';
     return;
   }
 
@@ -115,7 +114,7 @@ async function createCalendar() {
           door.classList.add('open');
           lastOpenedDoor = door;
         } else {
-          alert("You can't open this door yet!");
+          alert("Bitte noch etwas Geduld. :)");
         }
       });
 
@@ -129,36 +128,29 @@ async function createCalendar() {
 }
 
 
-
-// Funktion zur Erzeugung nicht überlappender Positionen
 function generatePositions(count, width, height, size) {
   let positions = [];
-  let maxAttempts = 2500; // Maximale Anzahl an Versuchen, um eine Position zu finden
+  let maxAttempts = 2500;
   let attempts = 0;
 
   while (positions.length < count) {
-    // Zufällige Position generieren
     const x = Math.random() * (width - size);
     const y = Math.random() * (height - size);
 
-    // Prüfen, ob sich die neue Position mit bestehenden überlappt
     const overlap = positions.some(
         pos => Math.abs(pos.x - x) < size && Math.abs(pos.y - y) < size
     );
 
     if (!overlap) {
-      // Position hinzufügen, wenn sie gültig ist
       positions.push({ x, y });
-      attempts = 0; // Zurücksetzen, da eine Position gefunden wurde
+      attempts = 0; 
     } else {
-      attempts++; // Versuchszähler erhöhen
+      attempts++; 
     }
 
-    // Wenn zu viele erfolglose Versuche, Fallback verwenden
     if (attempts > maxAttempts) {
       console.warn('Switching to fallback positioning...');
 
-      // Rasterbasierte Positionierung
       positions = fallbackGridPositions(count, width, height, size);
       break; // Beende die while-Schleife, da die Fallback-Positionierung fertig ist
     }
@@ -167,39 +159,31 @@ function generatePositions(count, width, height, size) {
   return positions;
 }
 
-// Fallback: Rasterbasierte Positionierung
 function fallbackGridPositions(count, width, height, size) {
   const positions = [];
 
-  // Berechne die Anzahl der Spalten und Reihen, um das Raster zu erstellen
-  let cols = Math.floor(width / size); // Maximale Anzahl der Spalten
-  let rows = Math.ceil(count / cols); // Berechne die benötigten Reihen basierend auf der Anzahl der Türchen
+  let cols = Math.floor(width / size);
+  let rows = Math.ceil(count / cols);
 
-  // Berechne die tatsächliche Breite und Höhe des Rasters
   const totalWidth = cols * size;
   const totalHeight = rows * size;
 
-  // Berechne das Padding, um das Raster im Container zu zentrieren
   const horizontalPadding = (width - totalWidth) / 2;
   const verticalPadding = (height - totalHeight) / 2;
 
-  // Setze die Startpositionen mit Padding
   let x = horizontalPadding;
   let y = verticalPadding;
 
   for (let i = 0; i < count; i++) {
     positions.push({ x, y });
 
-    // Nächste Position im Raster
     x += size;
 
-    // Wenn die Spalte voll ist, springe zur nächsten Zeile
     if (x + size > width - horizontalPadding) {
       x = horizontalPadding;
       y += size;
     }
 
-    // Wenn der Platz im Raster nicht ausreicht
     if (y + size > height - verticalPadding) {
       console.error('Not enough space in the fallback grid.');
       break;
@@ -209,8 +193,4 @@ function fallbackGridPositions(count, width, height, size) {
   return positions;
 }
 
-
-
-
-// Kalender initialisieren
 createCalendar();
